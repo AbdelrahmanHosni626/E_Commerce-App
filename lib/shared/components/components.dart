@@ -1,5 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/svg.dart';
 import '../styles/colors.dart';
+
+Widget backButton(context) => IconButton(
+  onPressed: () {
+    Navigator.pop(context);
+  },
+  icon: const Icon(Icons.arrow_back_ios_new_rounded),
+);
+
 
 Widget defaultButton({
   Color? bgColor = kPrimaryColor,
@@ -9,16 +19,47 @@ Widget defaultButton({
     Container(
       width: double.infinity,
       decoration: BoxDecoration(
-        color: bgColor,
-        borderRadius: BorderRadius.circular(20),
+        color: kPrimaryColor,
+        borderRadius: BorderRadius.circular(25),
       ),
-      child: MaterialButton(
-        onPressed: function(),
-        child: Text(
-          text,
-          style: const TextStyle(
-            fontSize: 20,
-            color: Colors.white,
+      child: IconButton(
+        color: kPrimaryColor,
+        onPressed: () {},
+        icon: const Text(
+          'Continue',
+          style: TextStyle(color: Colors.white, fontSize: 20),
+        ),
+      ),
+    );
+
+Widget defaultFormField({
+  required TextEditingController controller,
+  required TextInputType type,
+  VoidCallback? onTap,
+  ValueChanged<String>? onChanged,
+  ValueChanged<String>? onSubmit,
+  bool? isPassword = false,
+  required FormFieldValidator<String> validate,
+  String? labelText,
+  String? hintText,
+  String? suffixIcon,
+}) =>
+    TextFormField(
+      controller: controller,
+      keyboardType: type,
+      onTap: onTap,
+      onChanged: onChanged,
+      onFieldSubmitted: onSubmit,
+      obscureText: isPassword!,
+      validator: validate,
+      decoration: InputDecoration(
+        labelText: labelText,
+        hintText: hintText,
+        suffixIcon: Padding(
+          padding: const EdgeInsets.fromLTRB(0, 28, 28, 28),
+          child: SvgPicture.asset(
+            suffixIcon!,
+            height: 20,
           ),
         ),
       ),
