@@ -17,10 +17,19 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.white,
-        primarySwatch: kPrimaryColor,
+        primaryColor: kPrimaryColor,
+        primarySwatch: swatchColor,
         appBarTheme: const AppBarTheme(
           color: Colors.white,
           elevation: 0,
+          iconTheme: IconThemeData(
+            color: Colors.black,
+          ),
+          titleTextStyle: TextStyle(
+            color: Color(0XFF8B8B8B),
+            fontSize: 18,
+            fontFamily: 'muli',
+          ),
           systemOverlayStyle: SystemUiOverlayStyle(
             statusBarIconBrightness: Brightness.dark,
             statusBarColor: Colors.white,
@@ -40,6 +49,27 @@ class MyApp extends StatelessWidget {
             fontWeight: FontWeight.normal,
             color: Colors.grey,
           ),
+        ),
+        inputDecorationTheme: InputDecorationTheme(
+          floatingLabelBehavior: FloatingLabelBehavior.always,
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(28),
+            borderSide: const BorderSide(color: kTextColor),
+            gapPadding: 10,
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(28),
+            borderSide: const BorderSide(color: kTextColor),
+            gapPadding: 10,
+          ),
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 40,
+            vertical: 20,
+          ),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(28),
+          ),
+          labelStyle: const TextStyle(color: kTextColor),
         ),
       ),
       debugShowCheckedModeBanner: false,

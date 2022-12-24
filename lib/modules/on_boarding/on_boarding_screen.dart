@@ -45,7 +45,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         actions: [
           TextButton(
             onPressed: () {
-              navigateAndFinish(context, LoginScreen());
+              navigateTo(context, LoginScreen());
             },
             child: const Text(
               'SKIP',
@@ -104,25 +104,26 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                       width: double.infinity,
                       decoration: BoxDecoration(
                         color: kPrimaryColor,
-                        borderRadius: BorderRadius.circular(25),
+                        borderRadius: BorderRadius.circular(28),
                       ),
-                      child: IconButton(
-                        color: kPrimaryColor,
+                      child: MaterialButton(
                         onPressed: () {
-                          if(isLast)
-                            {
-                              navigateAndFinish(context, LoginScreen());
-                            } else{
+                          if (isLast) {
+                            navigateTo(context, LoginScreen());
+                          } else {
                             boardingController.nextPage(
                               duration: const Duration(milliseconds: 1600),
                               curve: Curves.fastLinearToSlowEaseIn,
                             );
                           }
-
                         },
-                        icon: const Text(
+                        child: const Text(
                           'Continue',
-                          style: TextStyle(color: Colors.white, fontSize: 20),
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                            fontFamily: 'muli',
+                          ),
                         ),
                       ),
                     ),
