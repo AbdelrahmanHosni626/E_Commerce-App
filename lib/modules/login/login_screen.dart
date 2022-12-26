@@ -1,11 +1,13 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:e_commerce_app/modules/login/cubit/states.dart';
+import 'package:e_commerce_app/modules/login/login_success.dart';
 import 'package:e_commerce_app/shared/components/components.dart';
 import 'package:e_commerce_app/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../shared/network/local/cache_helper.dart';
 import 'cubit/cubit.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -29,7 +31,31 @@ class _LoginScreenState extends State<LoginScreen> {
     return BlocProvider(
       create: (BuildContext context) => LoginCubit(),
       child: BlocConsumer<LoginCubit, LoginStates>(
-        listener: (BuildContext context, state) {},
+        listener: (BuildContext context, state) {
+          if (state is LoginSuccessState) {
+            if (state.loginModel.status) {
+              print(state.loginModel.status);
+              print(state.loginModel.message);
+
+              CacheHelper.saveData(
+                key: 'token',
+                value: state.loginModel.data!.token,
+              ).then((value) {
+                navigateAndFinish(context, LoginSuccessScreen());
+              });
+
+              showToast(
+                msg: state.loginModel.message,
+                state: ToastStates.SUCCESS,
+              );
+            } else {
+              showToast(
+                msg: state.loginModel.message,
+                state: ToastStates.ERROR,
+              );
+            }
+          }
+        },
         builder: (BuildContext context, Object? state) {
           var cubit = LoginCubit.get(context);
 
@@ -37,8 +63,7 @@ class _LoginScreenState extends State<LoginScreen> {
             onTap: FocusScope.of(context).unfocus,
             child: Scaffold(
               appBar: AppBar(
-                leading: backButton(context),
-                title: const Text('Sing in'),
+                title: const Center(child: Text('Sing in')),
               ),
               body: Padding(
                 padding: const EdgeInsets.all(15.0),
