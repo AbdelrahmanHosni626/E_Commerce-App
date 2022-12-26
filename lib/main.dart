@@ -1,3 +1,6 @@
+import 'package:bloc/bloc.dart';
+import 'package:e_commerce_app/shared/bloc_observer.dart';
+import 'package:e_commerce_app/shared/network/remote/dio_helper.dart';
 import 'package:e_commerce_app/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -5,6 +8,11 @@ import 'package:flutter/services.dart';
 import 'modules/on_boarding/on_boarding_screen.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  Bloc.observer = MyBlocObserver();
+
+  DioHelper.init();
+
   runApp(const MyApp());
 }
 
