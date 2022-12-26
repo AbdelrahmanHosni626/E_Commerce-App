@@ -1,23 +1,49 @@
 import 'package:bloc/bloc.dart';
+import 'package:e_commerce_app/modules/home/home_screen.dart';
 import 'package:e_commerce_app/shared/bloc_observer.dart';
+import 'package:e_commerce_app/shared/components/constants.dart';
+import 'package:e_commerce_app/shared/network/local/cache_helper.dart';
 import 'package:e_commerce_app/shared/network/remote/dio_helper.dart';
 import 'package:e_commerce_app/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
+import 'modules/login/login_screen.dart';
 import 'modules/on_boarding/on_boarding_screen.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer = MyBlocObserver();
 
   DioHelper.init();
+  await CacheHelper.init();
 
-  runApp(const MyApp());
+  Widget widget;
+
+  token = CacheHelper.getData(key: 'token');
+  onBoarding = CacheHelper.getData(key: 'onBoarding');
+
+  print(token);
+  print(onBoarding);
+
+  if (onBoarding != null) {
+    if (token != null) {
+      widget = HomeScreen();
+    } else {
+      widget = LoginScreen();
+    }
+  } else {
+    widget = OnBoardingScreen();
+  }
+
+  runApp(MyApp(
+    startWidget: widget,
+  ));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final dynamic startWidget;
+
+  MyApp({required this.startWidget});
 
   // This widget is the root of your application.
   @override
@@ -81,7 +107,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       debugShowCheckedModeBanner: false,
-      home: OnBoardingScreen(),
+      home: startWidget,
     );
   }
 }

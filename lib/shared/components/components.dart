@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import '../styles/colors.dart';
 
 Widget backButton(context) => IconButton(
@@ -64,6 +65,38 @@ Widget defaultFormField({
         ),
       ),
     );
+
+
+void showToast({
+  required String msg,
+  required ToastStates state,
+}) => Fluttertoast.showToast(
+  msg: msg,
+  toastLength: Toast.LENGTH_LONG,
+  gravity: ToastGravity.BOTTOM,
+  timeInSecForIosWeb: 5,
+  backgroundColor: Colors.green,
+  textColor: Colors.white,
+  fontSize: 18.0,
+);
+
+enum ToastStates {SUCCESS, ERROR, WARNING}
+
+Color chooseToastColor(ToastStates state) {
+  Color color;
+  switch (state) {
+    case ToastStates.SUCCESS:
+      color = Colors.green;
+      break;
+    case ToastStates.ERROR:
+      color = Colors.red;
+      break;
+    case ToastStates.WARNING:
+      color = Colors.yellow;
+      break;
+  }
+  return color;
+}
 
 void navigateTo(context, widget) =>
     Navigator.push(context, MaterialPageRoute(builder: (context) => widget));
