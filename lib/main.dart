@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:e_commerce_app/modules/home/home_screen.dart';
+import 'package:e_commerce_app/layout/home_layout_screen.dart';
 import 'package:e_commerce_app/shared/bloc_observer.dart';
 import 'package:e_commerce_app/shared/components/constants.dart';
 import 'package:e_commerce_app/shared/network/local/cache_helper.dart';
@@ -27,7 +27,7 @@ void main() async {
 
   if (onBoarding != null) {
     if (token != null) {
-      widget = HomeScreen();
+      widget = HomeLayoutScreen();
     } else {
       widget = LoginScreen();
     }
@@ -107,7 +107,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       debugShowCheckedModeBanner: false,
-      home: startWidget,
+      home: HomeLayoutScreen(),
     );
   }
 }

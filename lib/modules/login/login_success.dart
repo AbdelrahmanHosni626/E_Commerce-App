@@ -1,8 +1,8 @@
-import 'package:e_commerce_app/modules/home/home_screen.dart';
+import 'package:e_commerce_app/layout/home_layout_screen.dart';
 import 'package:flutter/material.dart';
-
 import '../../shared/components/components.dart';
 import '../../shared/styles/colors.dart';
+
 
 class LoginSuccessScreen extends StatelessWidget {
   const LoginSuccessScreen({Key? key}) : super(key: key);
@@ -40,7 +40,7 @@ class LoginSuccessScreen extends StatelessWidget {
               color: kPrimaryColor,
               onPressed: ()
               {
-                navigateAndFinish(context, HomeScreen());
+                navigateAndFinish(context, HomeLayoutScreen());
               },
               icon: const Text(
                 'Back To Home',
